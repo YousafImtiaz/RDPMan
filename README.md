@@ -1,12 +1,14 @@
-# SimpleRDP
+# RDPMan (RDP Manager)
 
-SimpleRDP is a Python-based tool made with ChatGPT which enables seamless management and connection to multiple RDP sessions. It stores all connection details in one place, allowing for efficient switching between sessions.
+  <img src="https://img.shields.io/badge/🔌_RDPMan-RDP_Connection_Manager-CC0000?style=for-the-badge&logo=windows&logoColor=white" alt="RDPMan" />
+
+RDPMan stores all connection details in one place, allowing for efficient switching between RDP sessions. This is ideal for large corporate networks like the OSEP challenge labs and the exam.
 
 # Usage
 
-python3 SimpleRDP.py
+> python3 rdpman.py
 
-SimpleRDP
+RDPMan
 
 --- RDP Connection Manager ---
 1. List saved connections
