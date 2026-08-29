@@ -99,7 +99,6 @@ def run_xfreerdp(ip, username, password):
         return
     
     # Build command with xfreerdp3 syntax
-    # Use shlex.quote to handle special characters
     command = [
         "xfreerdp3",
         "+cert:ignore",
@@ -186,8 +185,13 @@ def list_active_sessions():
         print(f"  {idx}. \033[1mIP\033[0m: \033[1;32m{session['ip']}\033[0m{hostname_info} (\033[1mPID\033[0m: {session['pid']}) - {status} - \033[1mUser\033[0m: \033[1;32m{session['username']}\033[0m")
     print("")
 
-# Handle Ctrl+C (KeyboardInterrupt) gracefully
-def handle_exit(signal_received, frame):
+# Handle Ctrl+C - Show message but don't exit
+def handle_ctrl_c(signal_received, frame):
+    print(f"\n\n  \033[1;33m⚠️  Ctrl+C detected. Press 7 and ENTER for options.\033[0m")
+    # Don't exit - just show the message
+
+# Handle graceful exit from menu
+def handle_exit():
     print("\n\n  \033[1;31mWARNING: Exiting will terminate all active RDP sessions.\033[0m")
     confirm = input("  Are you sure you want to exit? (y/n): ").strip().lower()
     if confirm == 'y':
@@ -205,7 +209,7 @@ def handle_exit(signal_received, frame):
 
 # Main function for CLI interaction
 def main():
-    signal.signal(signal.SIGINT, handle_exit)  # Handle Ctrl+C
+    signal.signal(signal.SIGINT, handle_ctrl_c)  # Ctrl+C just shows a message
     
     while True:
         clear_screen()
@@ -223,7 +227,11 @@ def main():
         print("  " + "=" * 30)
         print("  > \033[1;33mRDPMan\033[0m", end=" ")
         
-        choice = input().strip()
+        try:
+            choice = input().strip()
+        except KeyboardInterrupt:
+            # This shouldn't happen as signal handler catches it
+            continue
         
         if choice == '1':
             clear_screen()
@@ -273,7 +281,7 @@ def main():
                 print("  No active RDP sessions to terminate.\n")
             input("  Press Enter to continue...")
         elif choice == '7':
-            handle_exit(None, None)
+            handle_exit()
         else:
             clear_screen()
             print("\n  Invalid choice, please enter a number between 1 and 7.\n")
