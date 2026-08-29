@@ -11,3 +11,17 @@ RDPMan stores all connection details in one place, allowing for efficient switch
 # Credential Storage
 
 The credentials entered are saved to a local json file in the present directory.
+
+## Screenshots
+
+## RDPMan Interface
+
+![RDPMan Interface](./Images/RDPMan%20Interface.jpg)
+
+## View Saved Connections
+
+![RDPMan Saved Connections](./Images/Saved%20Connections.jpg)
+
+## View Active Connections
+
+![RDPMan Active Connections](./Images/Active%20Connections.jpg)
